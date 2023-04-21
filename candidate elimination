@@ -1,0 +1,61 @@
+s=[0,0,0,0,0,0]
+g=[1,1,1,1,1,1]
+def remg(g,df,ind):
+    l=[]
+    for i in range(len(g)):
+        if type(g[i])==list:
+            c=0
+            for j in range(1,len(df.columns)-1):
+                if(df.iloc[ind,j]!=g[i][j-1] or g[i][j-1]==0):
+                    c=c+1
+            if(c!=len(df.columns)-2):
+                l.append(g[i])
+        else:
+            if(g==[1,1,1,1,1,1]):
+                return g;
+    return l;
+def generalize(s,df,ind):
+    if(s==[0,0,0,0,0,0]):
+        for j in range(1,len(df.columns)-1):
+            s[j-1]=df.iloc[ind,j]
+    elif(s==[1,1,1,1,1,1]):
+        return h;
+    else:
+        for j in range(1,len(df.columns)-1):
+            if(s[j-1]!=df.iloc[ind,j]):
+                s[j-1]=1
+            elif(s[j-1]==0):
+                s[j-1]=df.iloc[ind,j]
+    return s;
+def rems(s,df,ind):
+    for j in range(1,len(df.columns)-1):
+        if(df.iloc[ind,j]!=s[j-1] or s[j-1]==0):
+            return s;
+def specialize(s,df,ind):
+    temp=[]
+    for j in range(1,len(df.columns)-1):
+        l=[1,1,1,1,1,1]
+        if(df.iloc[ind,j]!=s[j-1] and s[j-1]!=1):
+            l[j-1]=s[j-1]
+            temp.append(l)
+    return temp;
+def candele(s,g,df):
+    for ind in df.index:
+        if(df.loc[ind,"enjoy sport"]=="yes"):
+            g=remg(g,df,ind)
+            s=generalize(s,df,ind)
+        else:
+            s=rems(s,df,ind)
+            g=specialize(s,df,ind)
+        #print(s,g)
+    return s,g;
+a,b=candele(s,g,df)
+for i in b:
+    print(i)
+print(a)
+
+output:
+
+['sunny', 1, 1, 1, 1, 1]
+[1, 'warm', 1, 1, 1, 1]
+['sunny', 'warm', 1, 'strong', 1, 1]
